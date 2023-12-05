@@ -5,7 +5,7 @@ from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from db.db_setup import get_db
-from schemas.user import UserCreate, User, UserUpdate
+from schemas.user import UserCreate, User, UserUpdate, UserSignIn
 from crud.user import get_user, get_user_by_email, create_user, delete_user_by_id,update_user_by_id
 
 router = fastapi.APIRouter()
@@ -22,7 +22,7 @@ async def create_new_user(user: UserCreate, db: Session = Depends(get_db)):
 
 
 @router.get("/users", response_model=User, status_code=201)
-async def get_user_by_email(user: User, db: Session = Depends(get_db)):
+async def get_user_by_email(user: UserSignIn, db: Session = Depends(get_db)):
     db_user = get_user_by_email(db=db, email=user.email)
     if db_user:
         return db_user

@@ -32,3 +32,12 @@ class UserUpdate(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class UserSignIn(BaseModel):
+    email: str = None
+    password: str=None
+    # updated_at: datetime
+
+    class Config:
+        from_attributes = True
