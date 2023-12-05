@@ -22,7 +22,7 @@ async def read_cars(
 @router.post("/car", response_model=Car, status_code=201)
 async def create_new_car(car: CarCreate, db: Session = Depends(get_db)):
     db_car = get_car_by_model(db=db, model=car.model)
-    if db_user:
+    if db_car:
         raise HTTPException(
             status_code=400, detail="Model is already registered"
         )
