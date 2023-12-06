@@ -28,7 +28,7 @@ def create_car(db: Session, car: CarCreate):
 
 
 def delete_car_by_id(db: Session, car_id: int):
-    query = db.query(User).get(car_id)
+    query = db.query(Car).get(car_id)
     db.delete(query)
     db.commit()
     db.close()
