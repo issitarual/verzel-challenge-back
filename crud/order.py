@@ -7,11 +7,11 @@ from schemas.order import OrderCreate
 
 
 async def get_orders_by_user(db: Session, user_id: int):
-    return db.query(Order).filter(Order.user_id == user_id).first().all()
+    return db.query(Order).filter(Order.user_id == user_id).all()
 
 
 def create_order(db: Session, order: Order):
-    db_order = Order(user_id=order.user_id, car_id=order.car_id)
+    db_order = Order(user_id=order.user_id, car_id=order.car_id, qtd=order.qtd)
     db.add(db_order)
     db.commit()
     db.refresh(db_order)

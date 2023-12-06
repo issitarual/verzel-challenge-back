@@ -18,5 +18,5 @@ async def create_new_order(order: OrderCreate, db: Session = Depends(get_db)):
 
 @router.get("/order/{user_id}", response_model=List[Order])
 async def read_user_order(user_id: int, db: Session = Depends(get_db)):
-    orders = get_orders_by_user(user_id=user_id, db=db)
+    orders = await get_orders_by_user(user_id=user_id, db=db)
     return orders

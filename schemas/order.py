@@ -4,6 +4,7 @@ from pydantic import BaseModel
 class OrderBase(BaseModel):
     car_id: int
     user_id: int
+    qtd: int
 
 
 class OrderCreate(OrderBase):
