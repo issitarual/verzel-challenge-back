@@ -2,12 +2,9 @@ import fastapi
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from db.db_setup import get_db
-from schemas.user import  User
+from models.user import  User
 from schemas.token import Token
-from security import (
-    create_access_token,
-    verify_password,
-)
+from secutiry import create_access_token, verify_password
 from sqlalchemy.orm import Session
 from sqlalchemy.future import select
 
@@ -18,7 +15,7 @@ def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(),
     session: Session = Depends(get_db),
 ):
-    user = session.scalar(select(User).where(User.email == form_data.email))
+    user = session.scalar(select(User).where(User.email == form_data.username))
 
     if not user:
         raise HTTPException(

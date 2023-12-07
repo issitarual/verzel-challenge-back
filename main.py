@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from api import cars, users, orders
+from api import cars, users, orders, token
 from db.db_setup import engine
 from models import user, car, order
 from fastapi.middleware.cors import CORSMiddleware
@@ -27,3 +27,4 @@ app.add_middleware(
 app.include_router(users.router)
 app.include_router(cars.router)
 app.include_router(orders.router)
+app.include_router(token.router)
