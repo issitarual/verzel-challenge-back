@@ -20,9 +20,10 @@ This is an API project for a car store website.
 ### Future improvements 🔮
 - [ ] Add created_at and updated_at fields
 - [ ] Add validations
+- [ ] Add tests
 
 ## Technologies
-The following tools and frameworks were used in the construction of the project:<br>
+The following tools and frameworks were used in the construction of the project:
 
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
