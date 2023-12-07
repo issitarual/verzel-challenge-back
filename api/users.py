@@ -6,10 +6,10 @@ from sqlalchemy.orm import Session
 from sqlalchemy.future import select
 
 from db.db_setup import get_db
-from schemas.user import UserCreate, User, UserUpdate
+from schemas.user import UserCreate, User, UserUpdate, UserSignIn
 from crud.user import get_user, get_user_by_email, create_user, delete_user_by_id,update_user_by_id, get_all_users
 from models.user import User as UserModel
-from secutiry import get_password_hash
+from secutiry import get_password_hash, verify_password
 
 router = fastapi.APIRouter()
 
@@ -22,6 +22,18 @@ def create_new_user(user: UserCreate, db: Session = Depends(get_db)):
     hashed_password = get_password_hash(user.password)
     return create_user(db=db, user=user, hashed_password=hashed_password)
 
+
+@router.post("/user", response_model=User, status_code=201)
+def user_sign_in(user: UserSignIn, db: Session = Depends(get_db)):
+    db_user = db.scalar(select(UserModel).where(UserModel.email == user.email))
+    if not db_user:
+        raise HTTPException(status_code=400, detail='Email already registered')
+    is_password_valid = verify_password(user.password, db_user.password)
+    if is_password_valid:
+        db_user.password = user.password
+        return db_user
+    else: 
+        raise HTTPException(status_code=400, detail='User or password not found')
 
 @router.get("/users/{user_id}", response_model=User)
 async def read_user(user_id: int,db: Session = Depends(get_db)):
