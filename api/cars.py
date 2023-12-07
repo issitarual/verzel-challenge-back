@@ -13,10 +13,10 @@ router = fastapi.APIRouter()
 
 @router.get("/car", response_model=List[Car])
 async def read_cars(
-    skip: int = 0, limit: int = 100, db: Session = Depends(get_db)
+    skip: int = 0, limit: int = 100, db: Session = Depends(get_db),
 ):
-    users = get_cars(db, skip=skip, limit=limit)
-    return users
+    cars = get_cars(db, skip=skip, limit=limit)
+    return cars
 
 
 @router.post("/car", response_model=Car, status_code=201)
