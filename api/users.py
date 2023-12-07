@@ -35,6 +35,7 @@ async def read_user(user_id: int,db: Session = Depends(get_db)):
 async def read_users(db: Session = Depends(get_db)):
     return get_all_users(db=db)
 
+
 @router.delete('/user/{user_id}')
 async def delete_user(user_id: int, db: Session = Depends(get_db)):
     db_user = await get_user(db=db, user_id=user_id)
@@ -43,6 +44,7 @@ async def delete_user(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     delete_user_by_id(db=db,user_id=user_id)
     return f"User {user_id} deleted successfully"
+
 
 @router.patch("/user/{user_id}", response_model=User)
 async def update_user(user_id: int, user: UserUpdate, db: Session = Depends(get_db)):

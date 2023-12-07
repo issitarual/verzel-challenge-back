@@ -37,11 +37,6 @@ async def read_car(car_id: int,db: Session = Depends(get_db)):
     return db_car
 
 
-# @router.get("/car/{user_id}/courses", response_model=List[Course])
-# async def read_user_courses(user_id: int, db: Session = Depends(get_db)):
-#     courses = get_user_courses(user_id=user_id, db=db)
-#     return courses
-
 @router.delete('/car/{car_id}')
 async def delete_user(car_id: int, db: Session = Depends(get_db)):
     db_car = await get_car(db=db, car_id=car_id)
@@ -50,6 +45,7 @@ async def delete_user(car_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     delete_car_by_id(db=db,car_id=car_id)
     return f"User {car_id} deleted successfully"
+
 
 @router.patch("/car/{car_id}", response_model=Car)
 async def update_user(car_id: int, car: CarUpdate, db: Session = Depends(get_db)):
